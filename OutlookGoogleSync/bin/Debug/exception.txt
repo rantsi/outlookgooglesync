@@ -1,0 +1,24 @@
+DotNetOpenAuth.Messaging.ProtocolException: Web request to 'https://accounts.google.com/o/oauth2/token' failed. ---> System.Net.WebException: The remote server returned an error: (407) Proxy Authentication Required.
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at DotNetOpenAuth.Messaging.StandardWebRequestHandler.GetRequestStreamCore(HttpWebRequest request)
+   --- End of inner exception stack trace ---
+   at DotNetOpenAuth.Messaging.StandardWebRequestHandler.GetRequestStreamCore(HttpWebRequest request)
+   at DotNetOpenAuth.Messaging.StandardWebRequestHandler.GetRequestStream(HttpWebRequest request, DirectWebRequestOptions options)
+   at DotNetOpenAuth.Messaging.StandardWebRequestHandler.GetRequestStream(HttpWebRequest request)
+   at DotNetOpenAuth.Messaging.Channel.SendParametersInEntity(HttpWebRequest httpRequest, IDictionary`2 fields)
+   at DotNetOpenAuth.Messaging.Channel.InitializeRequestAsPost(IDirectedProtocolMessage requestMessage)
+   at DotNetOpenAuth.OAuth2.ChannelElements.OAuth2ClientChannel.CreateHttpRequest(IDirectedProtocolMessage request)
+   at DotNetOpenAuth.Messaging.Channel.RequestCore(IDirectedProtocolMessage request)
+   at DotNetOpenAuth.Messaging.Channel.Request(IDirectedProtocolMessage requestMessage)
+   at DotNetOpenAuth.Messaging.Channel.Request[TResponse](IDirectedProtocolMessage requestMessage)
+   at DotNetOpenAuth.OAuth2.ClientBase.RefreshToken(IAuthorizationState authorization, Nullable`1 skipIfUsefulLifeExceeds)
+   at OutlookGoogleSync.GoogleCalendar.GetAuthentication(NativeApplicationClient arg) in c:\work\dev\projects\OutlookGoogleSync\OutlookGoogleSync\GoogleCalendar.cs:line 75
+   at Google.Apis.Authentication.OAuth2.OAuth2Authenticator`1.LoadAccessToken() in c:\google\google-api-dotnet-client\7-9-2012\default\Src\GoogleApis.Authentication.OAuth2\OAuth2Authenticator.cs:line 124
+   at Google.Apis.Authentication.OAuth2.OAuth2Authenticator`1.ApplyAuthenticationToRequest(HttpWebRequest request) in c:\google\google-api-dotnet-client\7-9-2012\default\Src\GoogleApis.Authentication.OAuth2\OAuth2Authenticator.cs:line 131
+   at Google.Apis.Requests.Request.CreateWebRequest(Action`1 onRequestReady) in c:\google\google-api-dotnet-client\7-9-2012\default\Src\GoogleApis\Apis\Requests\Request.cs:line 663
+   at Google.Apis.Requests.Request.ExecuteRequestAsync(Action`1 responseHandler) in c:\google\google-api-dotnet-client\7-9-2012\default\Src\GoogleApis\Apis\Requests\Request.cs:line 436
+   at Google.Apis.Requests.ServiceRequest`1.GetAsyncResponse(Action`1 responseHandler) in c:\google\google-api-dotnet-client\7-9-2012\default\Src\GoogleApis\Apis\Requests\ServiceRequest.cs:line 162
+   at Google.Apis.Requests.ServiceRequest`1.GetResponse() in c:\google\google-api-dotnet-client\7-9-2012\default\Src\GoogleApis\Apis\Requests\ServiceRequest.cs:line 177
+   at Google.Apis.Requests.ServiceRequest`1.Fetch() in c:\google\google-api-dotnet-client\7-9-2012\default\Src\GoogleApis\Apis\Requests\ServiceRequest.cs:line 203
+   at OutlookGoogleSync.GoogleCalendar.addEntry(Event e) in c:\work\dev\projects\OutlookGoogleSync\OutlookGoogleSync\GoogleCalendar.cs:line 153
