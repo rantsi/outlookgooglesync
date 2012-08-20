@@ -127,7 +127,7 @@ namespace OutlookGoogleSync
             
             if (request != null)
             {
-                result.AddRange(request.Items);
+            	if (request.Items != null) result.AddRange(request.Items);
             }
             return result;
         }

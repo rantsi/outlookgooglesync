@@ -5,7 +5,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using DotNetOpenAuth.Messaging;
 using Microsoft.Office.Interop.Outlook;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
@@ -350,5 +349,10 @@ namespace OutlookGoogleSync
 		}
 		
 
+		
+		void LinkLabel1LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			System.Diagnostics.Process.Start(linkLabel1.Text);			
+		}
     }
 }
