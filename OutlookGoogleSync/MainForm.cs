@@ -29,7 +29,7 @@ namespace OutlookGoogleSync
         {
             InitializeComponent();
             
-            label4.Text = label4.Text.Replace("{version}", "1.0.2");
+            label4.Text = label4.Text.Replace("{version}", "1.0.3");
             
             Instance = this;
             
