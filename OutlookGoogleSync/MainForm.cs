@@ -1,4 +1,4 @@
-﻿//TODO: propagate description updates?
+﻿//TODO: consider description updates?
 
 using System;
 using System.IO;
@@ -28,9 +28,11 @@ namespace OutlookGoogleSync
         {
             InitializeComponent();
             
-            label4.Text = label4.Text.Replace("{version}", System.Windows.Forms.Application.ProductVersion);
+            label4.Text = label4.Text.Replace("{version}", "1.0.2");
             
             Instance = this;
+            
+            
             
             if (File.Exists(FILENAME))
             {
