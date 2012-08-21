@@ -29,7 +29,7 @@ namespace OutlookGoogleSync
         {
             InitializeComponent();
             
-            label4.Text = label4.Text.Replace("{version}", "1.0.3");
+            label4.Text = label4.Text.Replace("{version}", "1.0.4");
             
             Instance = this;
             
@@ -129,6 +129,10 @@ namespace OutlookGoogleSync
             
             LogBox.Clear();
             
+            DateTime SyncStarted = DateTime.Now;
+            
+            logboxout("Sync started at " + SyncStarted.ToString());
+            logboxout("--------------------------------------------------");
             
             logboxout("Reading Outlook Calendar Entries...");
             List<AppointmentItem> OutlookEntries = OutlookCalendar.Instance.getCalendarEntriesInRange();
@@ -233,7 +237,10 @@ namespace OutlookGoogleSync
                 logboxout("--------------------------------------------------");
             }
 
-            logboxout("Sync finished.");
+            DateTime SyncFinished = DateTime.Now;
+            TimeSpan Elapsed = SyncFinished - SyncStarted;
+            logboxout("Sync finished at " + SyncFinished.ToString());
+            logboxout("Time needed: " + Elapsed.Minutes + " min " + Elapsed.Seconds + " s");
             
             button2.Enabled = true;
         }
