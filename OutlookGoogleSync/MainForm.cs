@@ -1,4 +1,5 @@
 ﻿//TODO: consider description updates?
+//TODO: optimize comparison algorithms
 
 using System;
 using System.IO;
@@ -118,6 +119,12 @@ namespace OutlookGoogleSync
         
         void SyncNow_Click(object sender, EventArgs e)
         {
+            if (Settings.Instance.UseGoogleCalendar.Id == "")
+            {
+                MessageBox.Show("You need to select a Google Calendar first on the 'Settings' tab.");
+                return;
+            }
+        
             button2.Enabled = false;
             
             LogBox.Clear();
