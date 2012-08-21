@@ -145,7 +145,7 @@ namespace OutlookGoogleSync
 		    this.tbMinuteOffsets.Location = new System.Drawing.Point(159, 27);
 		    this.tbMinuteOffsets.Name = "tbMinuteOffsets";
 		    this.tbMinuteOffsets.Size = new System.Drawing.Size(139, 20);
-		    this.tbMinuteOffsets.TabIndex = 1;
+		    this.tbMinuteOffsets.TabIndex = 5;
 		    this.tbMinuteOffsets.TextChanged += new System.EventHandler(this.TbMinuteOffsetsTextChanged);
 		    // 
 		    // label6
@@ -214,7 +214,7 @@ namespace OutlookGoogleSync
 		    this.comboBox1.Location = new System.Drawing.Point(124, 30);
 		    this.comboBox1.Name = "comboBox1";
 		    this.comboBox1.Size = new System.Drawing.Size(225, 21);
-		    this.comboBox1.TabIndex = 4;
+		    this.comboBox1.TabIndex = 1;
 		    this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1SelectedIndexChanged);
 		    // 
 		    // button1
@@ -222,7 +222,7 @@ namespace OutlookGoogleSync
 		    this.button1.Location = new System.Drawing.Point(6, 442);
 		    this.button1.Name = "button1";
 		    this.button1.Size = new System.Drawing.Size(75, 31);
-		    this.button1.TabIndex = 1;
+		    this.button1.TabIndex = 8;
 		    this.button1.Text = "Save";
 		    this.button1.UseVisualStyleBackColor = true;
 		    this.button1.Click += new System.EventHandler(this.Save_Click);
@@ -245,7 +245,7 @@ namespace OutlookGoogleSync
 		    this.tbDaysInTheFuture.Location = new System.Drawing.Point(112, 50);
 		    this.tbDaysInTheFuture.Name = "tbDaysInTheFuture";
 		    this.tbDaysInTheFuture.Size = new System.Drawing.Size(39, 20);
-		    this.tbDaysInTheFuture.TabIndex = 1;
+		    this.tbDaysInTheFuture.TabIndex = 4;
 		    this.tbDaysInTheFuture.TextChanged += new System.EventHandler(this.TbDaysInTheFutureTextChanged);
 		    // 
 		    // tbDaysInThePast
@@ -253,7 +253,7 @@ namespace OutlookGoogleSync
 		    this.tbDaysInThePast.Location = new System.Drawing.Point(112, 27);
 		    this.tbDaysInThePast.Name = "tbDaysInThePast";
 		    this.tbDaysInThePast.Size = new System.Drawing.Size(39, 20);
-		    this.tbDaysInThePast.TabIndex = 1;
+		    this.tbDaysInThePast.TabIndex = 3;
 		    this.tbDaysInThePast.TextChanged += new System.EventHandler(this.TbDaysInThePastTextChanged);
 		    // 
 		    // label2
