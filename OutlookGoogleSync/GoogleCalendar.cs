@@ -148,9 +148,11 @@ namespace OutlookGoogleSync
 		
 		public void addEntry(Event e)
 		{
-		    try
+            string cid = Settings.Instance.UseGoogleCalendar.Id;
+            var result = service.Events.Insert(e, cid).Fetch();
+            try
             {
-		      var result = service.Events.Insert(e, Settings.Instance.UseGoogleCalendar.Id).Fetch();
+                //var result = service.Events.Insert(e, Settings.Instance.UseGoogleCalendar.Id).Fetch();
             }
             catch (Exception ex)
             {

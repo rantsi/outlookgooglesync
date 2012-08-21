@@ -121,19 +121,65 @@ namespace OutlookGoogleSync
             button2.Enabled = false;
             
             LogBox.Clear();
+            
+            
             logboxout("Reading Outlook Calendar Entries...");
             List<AppointmentItem> OutlookEntries = OutlookCalendar.Instance.getCalendarEntriesInRange();
+            if (checkBox2.Checked)
+            {
+                TextWriter tw = new StreamWriter("export_found_in_outlook.txt");
+                foreach(AppointmentItem ai in OutlookEntries)
+                {
+                    tw.WriteLine(signature(ai));
+                }
+                tw.Close();            
+            }
             logboxout("Found " + OutlookEntries.Count + " Outlook Calendar Entries.");
             logboxout("--------------------------------------------------");
+            
+            
+            
             logboxout("Reading Google Calendar Entries...");
             List<Event> GoogleEntries = GoogleCalendar.Instance.getCalendarEntriesInRange();
+            if (checkBox2.Checked)
+            {
+                TextWriter tw = new StreamWriter("export_found_in_google.txt");
+                foreach(Event ev in GoogleEntries)
+                {
+                    tw.WriteLine(signature(ev));
+                }
+                tw.Close();
+            }
             logboxout("Found " + GoogleEntries.Count + " Google Calendar Entries.");
             logboxout("--------------------------------------------------");
+            
+            
             List<Event> GoogleEntriesToBeDeleted = IdentifyGoogleEntriesToBeDeleted(OutlookEntries, GoogleEntries);
+            if (checkBox2.Checked)
+            {
+                TextWriter tw = new StreamWriter("export_to_be_deleted.txt");
+                foreach(Event ev in GoogleEntriesToBeDeleted)
+                {
+                    tw.WriteLine(signature(ev));
+                }
+                tw.Close();
+            }
             logboxout(GoogleEntriesToBeDeleted.Count + " Google Calendar Entries to be deleted.");
+
+
             List<AppointmentItem> OutlookEntriesToBeCreated = IdentifyOutlookEntriesToBeCreated(OutlookEntries, GoogleEntries);
+            if (checkBox2.Checked)
+            {
+                TextWriter tw = new StreamWriter("export_to_be_created.txt");
+                foreach(AppointmentItem ai in OutlookEntriesToBeCreated)
+                {
+                    tw.WriteLine(signature(ai));
+                }
+                tw.Close();
+            }
             logboxout(OutlookEntriesToBeCreated.Count + " Entries to be created in Google.");
             logboxout("--------------------------------------------------");
+            
             
             if (GoogleEntriesToBeDeleted.Count>0)
             {
@@ -155,8 +201,8 @@ namespace OutlookGoogleSync
                     
                     if (ai.AllDayEvent)
                     {
-                        ev.Start.Date = ai.Start.ToShortDateString();
-                        ev.End.Date = ai.End.ToShortDateString();
+                        ev.Start.Date = ai.Start.ToString("yyyy-MM-dd");
+                        ev.End.Date = ai.End.ToString("yyyy-MM-dd");
                     } else {
                         ev.Start.DateTime = GoogleCalendar.Instance.GoogleTimeFrom(ai.Start);
                         ev.End.DateTime = GoogleCalendar.Instance.GoogleTimeFrom(ai.End);
@@ -182,46 +228,6 @@ namespace OutlookGoogleSync
 
             logboxout("Sync finished.");
             
-            
-            if (checkBox2.Checked)
-            {
-            
-                //export Outlook Entries
-                TextWriter tw = new StreamWriter("export_found_in_outlook.txt");
-                foreach(AppointmentItem ai in OutlookEntries)
-                {
-                    tw.WriteLine(signature(ai));
-                }
-                tw.Close();
-               
-    
-                //export Google Entries
-                tw = new StreamWriter("export_found_in_google.txt");
-                foreach(Event ev in GoogleEntries)
-                {
-                    tw.WriteLine(signature(ev));
-                }
-                tw.Close();
-    
-    
-                //export Google Entries to be deleted
-                tw = new StreamWriter("export_to_be_deleted.txt");
-                foreach(Event ev in GoogleEntriesToBeDeleted)
-                {
-                    tw.WriteLine(signature(ev));
-                }
-                tw.Close();
-    
-                //export Outlook Entries to be created
-                tw = new StreamWriter("export_to_be_created.txt");
-                foreach(AppointmentItem ai in OutlookEntriesToBeCreated)
-                {
-                    tw.WriteLine(signature(ai));
-                }
-                tw.Close();
-            }
-
-
             button2.Enabled = true;
         }
         
@@ -348,6 +354,10 @@ namespace OutlookGoogleSync
             TextWriter tw = new StreamWriter("exception.txt");
             tw.WriteLine(ex.ToString());
             tw.Close();
+            
+            this.Close();
+            System.Environment.Exit(-1);
+            System.Windows.Forms.Application.Exit();
 		}
 		
 
