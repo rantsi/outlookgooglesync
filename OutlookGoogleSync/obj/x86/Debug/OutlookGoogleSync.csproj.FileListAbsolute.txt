@@ -21,7 +21,6 @@ C:\work\tools\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Google.Apis
 C:\work\tools\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Newtonsoft.Json.Net35.xml
 C:\work\tools\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\OutlookGoogleSync.EnterAuthorizationCode.resources
 C:\work\tools\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\OutlookGoogleSync.exe.config
-C:\work\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\OutlookGoogleSync.exe.config
 C:\work\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\OutlookGoogleSync.exe
 C:\work\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\OutlookGoogleSync.pdb
 C:\work\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\DotNetOpenAuth.dll

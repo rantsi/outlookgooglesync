@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Net;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Outlook;
 using Google.Apis.Calendar.v3;
@@ -20,6 +21,7 @@ namespace OutlookGoogleSync
         public static MainForm Instance;
         
         public const string FILENAME = "settings.xml";
+        public const string VERSION = "1.0.4";
         
         public Timer ogstimer;
         public DateTime oldtime;
@@ -28,12 +30,14 @@ namespace OutlookGoogleSync
         public MainForm()
         {
             InitializeComponent();
-            
-            label4.Text = label4.Text.Replace("{version}", "1.0.4");
+            label4.Text = label4.Text.Replace("{version}", VERSION);
             
             Instance = this;
             
             
+            WebProxy wp = (WebProxy)System.Net.GlobalProxySelection.Select;
+            wp.UseDefaultCredentials = true;
+            System.Net.WebRequest.DefaultWebProxy = wp;
             
             if (File.Exists(FILENAME))
             {
