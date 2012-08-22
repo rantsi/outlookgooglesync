@@ -1,10 +1,20 @@
 ﻿//TODO: consider description updates?
 //TODO: optimize comparison algorithms
+/*
 
+
+1.5:
+- more info about start/end/needed time
+- got rid of app.config
+- changed double click to single click on tray icon
+
+
+*/
 using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Net;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Outlook;
 using Google.Apis.Calendar.v3;
@@ -20,6 +30,7 @@ namespace OutlookGoogleSync
         public static MainForm Instance;
         
         public const string FILENAME = "settings.xml";
+        public const string VERSION = "1.0.5";
         
         public Timer ogstimer;
         public DateTime oldtime;
@@ -28,13 +39,16 @@ namespace OutlookGoogleSync
         public MainForm()
         {
             InitializeComponent();
-            
-            label4.Text = label4.Text.Replace("{version}", "1.0.4");
+            label4.Text = label4.Text.Replace("{version}", VERSION);
             
             Instance = this;
             
+            //set system proxy
+            WebProxy wp = (WebProxy)System.Net.GlobalProxySelection.Select;
+            wp.UseDefaultCredentials = true;
+            System.Net.WebRequest.DefaultWebProxy = wp;
             
-            
+            //load settings/create settings file
             if (File.Exists(FILENAME))
             {
                 Settings.Instance = XMLManager.import<Settings>(FILENAME);    
@@ -42,6 +56,7 @@ namespace OutlookGoogleSync
                 XMLManager.export(Settings.Instance, FILENAME);
             }
             
+            //update GUI from Settings
             tbDaysInThePast.Text = Settings.Instance.DaysInThePast.ToString();
             tbDaysInTheFuture.Text = Settings.Instance.DaysInTheFuture.ToString();
             tbMinuteOffsets.Text = Settings.Instance.MinuteOffsets;
@@ -50,14 +65,14 @@ namespace OutlookGoogleSync
             cbAddAttendees.Checked = Settings.Instance.AddAttendeesToDescription;
             cbCreateFiles.Checked = Settings.Instance.CreateTextFiles;
             
-            
+            //set up timer (every 30s) for checking the minute offsets
             ogstimer = new Timer();
             ogstimer.Interval = 10000;
             ogstimer.Tick += new EventHandler(ogstimer_Tick);
             ogstimer.Start();
             oldtime = DateTime.Now;
             
-            
+            //set up tooltips for some controls
             ToolTip toolTip1 = new ToolTip();
             toolTip1.AutoPopDelay = 10000;
             toolTip1.InitialDelay = 500;
@@ -338,7 +353,7 @@ namespace OutlookGoogleSync
 		    Settings.Instance.CreateTextFiles = cbCreateFiles.Checked;
 		}
 		
-		void NotifyIcon1MouseDoubleClick(object sender, MouseEventArgs e)
+		void NotifyIcon1Click(object sender, EventArgs e)
 		{
 		    this.Show();
 		    this.WindowState = FormWindowState.Normal;
@@ -346,13 +361,10 @@ namespace OutlookGoogleSync
 		
 		void MainFormResize(object sender, EventArgs e)
 		{
-             notifyIcon1.BalloonTipTitle = "OutlookGoogleSync";
-             notifyIcon1.BalloonTipText = "Double Click to open again.";
-        
              if (FormWindowState.Minimized == this.WindowState)
              {
                   notifyIcon1.Visible = true;
-                  notifyIcon1.ShowBalloonTip(500);
+                  notifyIcon1.ShowBalloonTip(500, "OutlookGoogleSync", "Click to open again.", ToolTipIcon.Info);
                   this.Hide();    
              }
              else if (FormWindowState.Normal == this.WindowState)
@@ -380,5 +392,7 @@ namespace OutlookGoogleSync
 		{
 			System.Diagnostics.Process.Start(linkLabel1.Text);			
 		}
+		
+
     }
 }
