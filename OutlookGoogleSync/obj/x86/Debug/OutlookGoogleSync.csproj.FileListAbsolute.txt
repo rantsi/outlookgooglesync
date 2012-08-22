@@ -66,3 +66,4 @@ D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Google.Apis.Authen
 D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Google.Apis.Calendar.v3.pdb
 D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Google.Apis.Calendar.v3.xml
 D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Newtonsoft.Json.Net35.xml
+C:\work\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Microsoft.Office.Interop.Outlook.dll
