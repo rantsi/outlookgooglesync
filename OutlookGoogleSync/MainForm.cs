@@ -1,6 +1,15 @@
 ﻿//TODO: consider description updates?
 //TODO: optimize comparison algorithms
+/*
 
+
+1.5:
+- more info about start/end/needed time
+- got rid of app.config
+- changed double click to single click on tray icon
+
+
+*/
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -21,7 +30,7 @@ namespace OutlookGoogleSync
         public static MainForm Instance;
         
         public const string FILENAME = "settings.xml";
-        public const string VERSION = "1.0.4";
+        public const string VERSION = "1.0.5";
         
         public Timer ogstimer;
         public DateTime oldtime;
@@ -344,7 +353,7 @@ namespace OutlookGoogleSync
 		    Settings.Instance.CreateTextFiles = checkBox2.Checked;
 		}
 		
-		void NotifyIcon1MouseDoubleClick(object sender, MouseEventArgs e)
+		void NotifyIcon1Click(object sender, EventArgs e)
 		{
 		    this.Show();
 		    this.WindowState = FormWindowState.Normal;
@@ -352,13 +361,10 @@ namespace OutlookGoogleSync
 		
 		void MainFormResize(object sender, EventArgs e)
 		{
-             notifyIcon1.BalloonTipTitle = "OutlookGoogleSync";
-             notifyIcon1.BalloonTipText = "Double Click to open again.";
-        
              if (FormWindowState.Minimized == this.WindowState)
              {
                   notifyIcon1.Visible = true;
-                  notifyIcon1.ShowBalloonTip(500);
+                  notifyIcon1.ShowBalloonTip(500, "OutlookGoogleSync", "Click to open again.", ToolTipIcon.Info);
                   this.Hide();    
              }
              else if (FormWindowState.Normal == this.WindowState)
@@ -386,5 +392,7 @@ namespace OutlookGoogleSync
 		{
 			System.Diagnostics.Process.Start(linkLabel1.Text);			
 		}
+		
+
     }
 }
