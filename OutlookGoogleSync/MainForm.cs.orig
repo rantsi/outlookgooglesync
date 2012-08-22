@@ -1,5 +1,15 @@
 ﻿//TODO: consider description updates?
 //TODO: optimize comparison algorithms
+/*
+
+
+1.5:
+- more info about start/end/needed time
+- got rid of app.config
+- changed double click to single click on tray icon
+
+
+*/
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -50,10 +60,10 @@ namespace OutlookGoogleSync
             tbDaysInThePast.Text = Settings.Instance.DaysInThePast.ToString();
             tbDaysInTheFuture.Text = Settings.Instance.DaysInTheFuture.ToString();
             tbMinuteOffsets.Text = Settings.Instance.MinuteOffsets;
-            cbCalendars.Items.Add(Settings.Instance.UseGoogleCalendar);
-            cbCalendars.SelectedIndex = 0;
-            cbAddAttendees.Checked = Settings.Instance.AddAttendeesToDescription;
-            cbCreateFiles.Checked = Settings.Instance.CreateTextFiles;
+            comboBox1.Items.Add(Settings.Instance.UseGoogleCalendar);
+            comboBox1.SelectedIndex = 0;
+            checkBox1.Checked = Settings.Instance.AddAttendeesToDescription;
+            checkBox2.Checked = Settings.Instance.CreateTextFiles;
             
             //set up timer (every 30s) for checking the minute offsets
             ogstimer = new Timer();
@@ -68,15 +78,15 @@ namespace OutlookGoogleSync
             toolTip1.InitialDelay = 500;
             toolTip1.ReshowDelay = 200;
             toolTip1.ShowAlways = true;
-            toolTip1.SetToolTip(cbCalendars, 
+            toolTip1.SetToolTip(comboBox1, 
                 "The Google Calendar to synchonize with.");
             toolTip1.SetToolTip(tbMinuteOffsets, 
                 "One ore more Minute Offsets at which the sync is automatically started each hour. \n" +
                 "Separate by comma (e.g. 5,15,25).");
-            toolTip1.SetToolTip(cbAddAttendees, 
+            toolTip1.SetToolTip(checkBox1, 
                 "While Outlook has fields for Organizer, RequiredAttendees and OptionalAttendees, Google has not.\n" +
                 "If checked, this data is added at the end of the description when creating an event in Google.");
-            toolTip1.SetToolTip(cbCreateFiles, 
+            toolTip1.SetToolTip(checkBox2, 
                 "If checked, all entries found in Outlook/Google and identified for creation/deletion will be exported \n" +
                 "to 4 separate text files in the application's directory (named \"export_*.txt\"). \n" +
                 "Only for debug/diagnostic purpose.");
@@ -104,22 +114,22 @@ namespace OutlookGoogleSync
         
         void GetMyGoogleCalendars_Click(object sender, EventArgs e)
         {
-            bGetMyCalendars.Enabled = false;
-            cbCalendars.Enabled = false;
+            button3.Enabled = false;
+            comboBox1.Enabled = false;
             
             List<MyCalendarListEntry> calendars = GoogleCalendar.Instance.getCalendars();
             if (calendars != null)
             {
-                cbCalendars.Items.Clear();
+                comboBox1.Items.Clear();
                 foreach (MyCalendarListEntry mcle in calendars)
                 {
-                  cbCalendars.Items.Add(mcle);
+                  comboBox1.Items.Add(mcle);
                 }
-                MainForm.Instance.cbCalendars.SelectedIndex = 0;
+                MainForm.Instance.comboBox1.SelectedIndex = 0;
             }
             
-            bGetMyCalendars.Enabled = true;
-            cbCalendars.Enabled = true;
+            button3.Enabled = true;
+            comboBox1.Enabled = true;
         }
         
         void SyncNow_Click(object sender, EventArgs e)
@@ -130,7 +140,7 @@ namespace OutlookGoogleSync
                 return;
             }
         
-            bSyncNow.Enabled = false;
+            button2.Enabled = false;
             
             LogBox.Clear();
             
@@ -141,7 +151,7 @@ namespace OutlookGoogleSync
             
             logboxout("Reading Outlook Calendar Entries...");
             List<AppointmentItem> OutlookEntries = OutlookCalendar.Instance.getCalendarEntriesInRange();
-            if (cbCreateFiles.Checked)
+            if (checkBox2.Checked)
             {
                 TextWriter tw = new StreamWriter("export_found_in_outlook.txt");
                 foreach(AppointmentItem ai in OutlookEntries)
@@ -157,7 +167,7 @@ namespace OutlookGoogleSync
             
             logboxout("Reading Google Calendar Entries...");
             List<Event> GoogleEntries = GoogleCalendar.Instance.getCalendarEntriesInRange();
-            if (cbCreateFiles.Checked)
+            if (checkBox2.Checked)
             {
                 TextWriter tw = new StreamWriter("export_found_in_google.txt");
                 foreach(Event ev in GoogleEntries)
@@ -171,7 +181,7 @@ namespace OutlookGoogleSync
             
             
             List<Event> GoogleEntriesToBeDeleted = IdentifyGoogleEntriesToBeDeleted(OutlookEntries, GoogleEntries);
-            if (cbCreateFiles.Checked)
+            if (checkBox2.Checked)
             {
                 TextWriter tw = new StreamWriter("export_to_be_deleted.txt");
                 foreach(Event ev in GoogleEntriesToBeDeleted)
@@ -184,7 +194,7 @@ namespace OutlookGoogleSync
 
 
             List<AppointmentItem> OutlookEntriesToBeCreated = IdentifyOutlookEntriesToBeCreated(OutlookEntries, GoogleEntries);
-            if (cbCreateFiles.Checked)
+            if (checkBox2.Checked)
             {
                 TextWriter tw = new StreamWriter("export_to_be_created.txt");
                 foreach(AppointmentItem ai in OutlookEntriesToBeCreated)
@@ -227,7 +237,7 @@ namespace OutlookGoogleSync
                     ev.Description = ai.Body;
                     ev.Location = ai.Location;
                     
-                    if (cbAddAttendees.Checked)
+                    if (checkBox1.Checked)
                     {
                         ev.Description += Environment.NewLine + "----------------------------------------";
                         ev.Description += Environment.NewLine + "Added by OutlookGoogleSync:" + Environment.NewLine;
@@ -247,7 +257,7 @@ namespace OutlookGoogleSync
             logboxout("Sync finished at " + SyncFinished.ToString());
             logboxout("Time needed: " + Elapsed.Minutes + " min " + Elapsed.Seconds + " s");
             
-            bSyncNow.Enabled = true;
+            button2.Enabled = true;
         }
         
         
@@ -305,7 +315,7 @@ namespace OutlookGoogleSync
         
         void ComboBox1SelectedIndexChanged(object sender, EventArgs e)
         {
-            Settings.Instance.UseGoogleCalendar = (MyCalendarListEntry) cbCalendars.SelectedItem;
+            Settings.Instance.UseGoogleCalendar = (MyCalendarListEntry) comboBox1.SelectedItem;
         }
         
         void TbDaysInThePastTextChanged(object sender, EventArgs e)
@@ -335,12 +345,12 @@ namespace OutlookGoogleSync
 		
 		void CheckBox1CheckedChanged(object sender, EventArgs e)
 		{
-		    Settings.Instance.AddAttendeesToDescription = cbAddAttendees.Checked;
+		    Settings.Instance.AddAttendeesToDescription = checkBox1.Checked;
 		}
 		
 		void CheckBox2CheckedChanged(object sender, EventArgs e)
 		{
-		    Settings.Instance.CreateTextFiles = cbCreateFiles.Checked;
+		    Settings.Instance.CreateTextFiles = checkBox2.Checked;
 		}
 		
 		void NotifyIcon1Click(object sender, EventArgs e)
