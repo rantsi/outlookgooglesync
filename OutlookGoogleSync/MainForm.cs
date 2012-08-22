@@ -34,11 +34,12 @@ namespace OutlookGoogleSync
             
             Instance = this;
             
-            
+            //set system proxy
             WebProxy wp = (WebProxy)System.Net.GlobalProxySelection.Select;
             wp.UseDefaultCredentials = true;
             System.Net.WebRequest.DefaultWebProxy = wp;
             
+            //load settings/create settings file
             if (File.Exists(FILENAME))
             {
                 Settings.Instance = XMLManager.import<Settings>(FILENAME);    
@@ -46,6 +47,7 @@ namespace OutlookGoogleSync
                 XMLManager.export(Settings.Instance, FILENAME);
             }
             
+            //update GUI from Settings
             tbDaysInThePast.Text = Settings.Instance.DaysInThePast.ToString();
             tbDaysInTheFuture.Text = Settings.Instance.DaysInTheFuture.ToString();
             tbMinuteOffsets.Text = Settings.Instance.MinuteOffsets;
@@ -54,14 +56,14 @@ namespace OutlookGoogleSync
             checkBox1.Checked = Settings.Instance.AddAttendeesToDescription;
             checkBox2.Checked = Settings.Instance.CreateTextFiles;
             
-            
+            //set up timer (every 30s) for checking the minute offsets
             ogstimer = new Timer();
             ogstimer.Interval = 10000;
             ogstimer.Tick += new EventHandler(ogstimer_Tick);
             ogstimer.Start();
             oldtime = DateTime.Now;
             
-            
+            //set up tooltips for some controls
             ToolTip toolTip1 = new ToolTip();
             toolTip1.AutoPopDelay = 10000;
             toolTip1.InitialDelay = 500;
