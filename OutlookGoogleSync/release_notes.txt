@@ -1,4 +1,6 @@
-﻿
+﻿1.6:
+- compiled with .Net 3.5
+
 1.5:
 - changed Outlook Primary Interop Assembly to V11 (Ofice 2003) to support older Office versions
 - more info about start/end/needed time

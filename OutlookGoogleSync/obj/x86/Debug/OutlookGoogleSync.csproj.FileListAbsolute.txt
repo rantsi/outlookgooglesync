@@ -67,3 +67,5 @@ D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Google.Apis.Calend
 D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Newtonsoft.Json.Net35.xml
 C:\work\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Microsoft.Office.Interop.Outlook.dll
 D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\OUTLPIA.DLL
+D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\ResGen.read.1.tlog
+D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\ResGen.write.1.tlog
