@@ -31,8 +31,15 @@ namespace OutlookGoogleSync
         public int DaysInThePast = 1;
         public int DaysInTheFuture = 60;
         public MyCalendarListEntry UseGoogleCalendar = new MyCalendarListEntry();
+
+        public bool SyncEveryHour = false;
+        public bool ShowBubbleTooltipWhenSyncing = false;
+        public bool StartInTray = false;
+        public bool MinimizeToTray = false;
+        
         public bool AddAttendeesToDescription = true;
         public bool CreateTextFiles = true;
+
         
 
         public Settings()
