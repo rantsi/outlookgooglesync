@@ -311,14 +311,13 @@ namespace OutlookGoogleSync
         
         public string signature(AppointmentItem ai)
         {
-            //return (ai.Start.GetDateTimeFormats('s')[0] + "+02:00" + ";" + ai.End.GetDateTimeFormats('s')[0] + "+02:00" + ";" + ai.Subject).Trim();
-            return (GoogleCalendar.Instance.GoogleTimeFrom(ai.Start) + ";" + GoogleCalendar.Instance.GoogleTimeFrom(ai.End) + ";" + ai.Subject).Trim();
+            return (GoogleCalendar.Instance.GoogleTimeFrom(ai.Start) + ";" + GoogleCalendar.Instance.GoogleTimeFrom(ai.End) + ";" + ai.Subject + ";" + ai.Location).Trim();
         }
         public string signature(Event ev)
         {
             if (ev.Start.DateTime==null) ev.Start.DateTime = GoogleCalendar.Instance.GoogleTimeFrom(DateTime.Parse(ev.Start.Date));
             if (ev.End.DateTime==null) ev.End.DateTime = GoogleCalendar.Instance.GoogleTimeFrom(DateTime.Parse(ev.End.Date));
-            return (ev.Start.DateTime + ";" + ev.End.DateTime + ";" + ev.Summary).Trim();
+            return (ev.Start.DateTime + ";" + ev.End.DateTime + ";" + ev.Summary + ";" + ev.Location).Trim();
         }
         
         void logboxout(string s)
