@@ -83,7 +83,16 @@ namespace OutlookGoogleSync
                 DateTime min = DateTime.Now.AddDays(-Settings.Instance.DaysInThePast);
                 DateTime max = DateTime.Now.AddDays(+Settings.Instance.DaysInTheFuture+1);
 
-                string filter = "[End] >= '" + min.ToString("dd.MM.yyyy HH:mm") + "' AND [Start] < '" + max.ToString("dd.MM.yyyy HH:mm") + "'";
+                //initial version: did not work in all non-German environments
+                //string filter = "[End] >= '" + min.ToString("dd.MM.yyyy HH:mm") + "' AND [Start] < '" + max.ToString("dd.MM.yyyy HH:mm") + "'";
+                
+                //proposed by WolverineFan, included here for future reference
+                //string filter = "[End] >= '" + min.ToString("dd.MM.yyyy HH:mm") + "' AND [Start] < '" + max.ToString("dd.MM.yyyy HH:mm") + "'";
+
+                //trying this instead, also proposed by WolverineFan, thanks!!! 
+                string filter = "[End] >= '" + min.ToString("g") + "' AND [Start] < '" + max.ToString("g") + "'";
+                
+                
                 foreach(AppointmentItem ai in OutlookItems.Restrict(filter))
                 {
                     result.Add(ai);

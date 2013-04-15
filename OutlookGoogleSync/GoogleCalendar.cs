@@ -159,7 +159,7 @@ namespace OutlookGoogleSync
 		}
 		
 		
-		//returns the Google Time Format of a given .Net DateTime value
+		//returns the Google Time Format String of a given .Net DateTime value
 		//Google Time Format = "2012-08-20T00:00:00+02:00"
 		public string GoogleTimeFrom(DateTime dt)
 		{

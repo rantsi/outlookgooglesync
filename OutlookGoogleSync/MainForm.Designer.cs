@@ -44,6 +44,7 @@ namespace OutlookGoogleSync
 		    this.tabPage2 = new System.Windows.Forms.TabPage();
 		    this.groupBox5 = new System.Windows.Forms.GroupBox();
 		    this.cbAddAttendees = new System.Windows.Forms.CheckBox();
+		    this.cbAddDescription = new System.Windows.Forms.CheckBox();
 		    this.cbCreateFiles = new System.Windows.Forms.CheckBox();
 		    this.groupBox4 = new System.Windows.Forms.GroupBox();
 		    this.cbMinimizeToTray = new System.Windows.Forms.CheckBox();
@@ -138,29 +139,40 @@ namespace OutlookGoogleSync
 		    // groupBox5
 		    // 
 		    this.groupBox5.Controls.Add(this.cbAddAttendees);
+		    this.groupBox5.Controls.Add(this.cbAddDescription);
 		    this.groupBox5.Controls.Add(this.cbCreateFiles);
-		    this.groupBox5.Location = new System.Drawing.Point(177, 171);
+		    this.groupBox5.Location = new System.Drawing.Point(6, 265);
 		    this.groupBox5.Name = "groupBox5";
-		    this.groupBox5.Size = new System.Drawing.Size(304, 88);
+		    this.groupBox5.Size = new System.Drawing.Size(261, 111);
 		    this.groupBox5.TabIndex = 12;
 		    this.groupBox5.TabStop = false;
 		    this.groupBox5.Text = "Options";
 		    // 
 		    // cbAddAttendees
 		    // 
-		    this.cbAddAttendees.Location = new System.Drawing.Point(6, 19);
+		    this.cbAddAttendees.Location = new System.Drawing.Point(12, 49);
 		    this.cbAddAttendees.Name = "cbAddAttendees";
-		    this.cbAddAttendees.Size = new System.Drawing.Size(286, 24);
+		    this.cbAddAttendees.Size = new System.Drawing.Size(235, 24);
 		    this.cbAddAttendees.TabIndex = 6;
-		    this.cbAddAttendees.Text = "Add Attendees at the end of the description";
+		    this.cbAddAttendees.Text = "Add Attendees at the end of the Description";
 		    this.cbAddAttendees.UseVisualStyleBackColor = true;
 		    this.cbAddAttendees.CheckedChanged += new System.EventHandler(this.cbAddAttendees_CheckedChanged);
 		    // 
+		    // cbAddDescription
+		    // 
+		    this.cbAddDescription.Location = new System.Drawing.Point(12, 19);
+		    this.cbAddDescription.Name = "cbAddDescription";
+		    this.cbAddDescription.Size = new System.Drawing.Size(209, 24);
+		    this.cbAddDescription.TabIndex = 7;
+		    this.cbAddDescription.Text = "Add Description";
+		    this.cbAddDescription.UseVisualStyleBackColor = true;
+		    this.cbAddDescription.CheckedChanged += new System.EventHandler(this.CbAddDescriptionCheckedChanged);
+		    // 
 		    // cbCreateFiles
 		    // 
-		    this.cbCreateFiles.Location = new System.Drawing.Point(6, 49);
+		    this.cbCreateFiles.Location = new System.Drawing.Point(12, 79);
 		    this.cbCreateFiles.Name = "cbCreateFiles";
-		    this.cbCreateFiles.Size = new System.Drawing.Size(275, 24);
+		    this.cbCreateFiles.Size = new System.Drawing.Size(235, 24);
 		    this.cbCreateFiles.TabIndex = 7;
 		    this.cbCreateFiles.Text = "Create text files with found/identified entries";
 		    this.cbCreateFiles.UseVisualStyleBackColor = true;
@@ -179,7 +191,7 @@ namespace OutlookGoogleSync
 		    // 
 		    // cbMinimizeToTray
 		    // 
-		    this.cbMinimizeToTray.Location = new System.Drawing.Point(6, 49);
+		    this.cbMinimizeToTray.Location = new System.Drawing.Point(12, 49);
 		    this.cbMinimizeToTray.Name = "cbMinimizeToTray";
 		    this.cbMinimizeToTray.Size = new System.Drawing.Size(104, 24);
 		    this.cbMinimizeToTray.TabIndex = 0;
@@ -189,7 +201,7 @@ namespace OutlookGoogleSync
 		    // 
 		    // cbStartInTray
 		    // 
-		    this.cbStartInTray.Location = new System.Drawing.Point(6, 19);
+		    this.cbStartInTray.Location = new System.Drawing.Point(12, 19);
 		    this.cbStartInTray.Name = "cbStartInTray";
 		    this.cbStartInTray.Size = new System.Drawing.Size(104, 24);
 		    this.cbStartInTray.TabIndex = 1;
@@ -394,6 +406,7 @@ namespace OutlookGoogleSync
 		    this.tabPage3.ResumeLayout(false);
 		    this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.CheckBox cbAddDescription;
 		private System.Windows.Forms.CheckBox cbShowBubbleTooltips;
 		private System.Windows.Forms.CheckBox cbSyncEveryHour;
 		private System.Windows.Forms.CheckBox cbMinimizeToTray;

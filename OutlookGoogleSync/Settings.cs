@@ -37,6 +37,7 @@ namespace OutlookGoogleSync
         public bool StartInTray = false;
         public bool MinimizeToTray = false;
         
+        public bool AddDescription = true;
         public bool AddAttendeesToDescription = true;
         public bool CreateTextFiles = true;
 
