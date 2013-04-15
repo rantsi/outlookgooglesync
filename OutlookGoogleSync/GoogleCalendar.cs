@@ -159,9 +159,10 @@ namespace OutlookGoogleSync
 		}
 		
 		
+		//returns the Google Time Format of a given .Net DateTime value
+		//Google Time Format = "2012-08-20T00:00:00+02:00"
 		public string GoogleTimeFrom(DateTime dt)
 		{
-            //Google Time Format = "2012-08-20T00:00:00+02:00";
             string timezone = TimeZoneInfo.Local.GetUtcOffset(dt).ToString();
             if (timezone[0] != '-') timezone = '+' + timezone;
             timezone = timezone.Substring(0,6);

@@ -1,4 +1,8 @@
-﻿1.6:
+﻿1.7:
+- additional options (start in tray, minimize to tray, show bubble tolltip when syncing)
+- attendees more readable: one attendee per line
+
+1.6:
 - compiled with .Net 3.5
 
 1.5:

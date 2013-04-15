@@ -20,7 +20,7 @@ namespace OutlookGoogleSync
         public static MainForm Instance;
         
         public const string FILENAME = "settings.xml";
-        public const string VERSION = "1.0.6";
+        public const string VERSION = "1.0.7";
         
         public Timer ogstimer;
         public DateTime oldtime;
@@ -52,12 +52,24 @@ namespace OutlookGoogleSync
             tbMinuteOffsets.Text = Settings.Instance.MinuteOffsets;
             cbCalendars.Items.Add(Settings.Instance.UseGoogleCalendar);
             cbCalendars.SelectedIndex = 0;
+            cbSyncEveryHour.Checked = Settings.Instance.SyncEveryHour;
+            cbShowBubbleTooltips.Checked = Settings.Instance.ShowBubbleTooltipWhenSyncing;
+            cbStartInTray.Checked = Settings.Instance.StartInTray;
+            cbMinimizeToTray.Checked = Settings.Instance.MinimizeToTray;
             cbAddAttendees.Checked = Settings.Instance.AddAttendeesToDescription;
             cbCreateFiles.Checked = Settings.Instance.CreateTextFiles;
             
+            //Start in tray?
+            if (cbStartInTray.Checked) 
+            {
+                this.WindowState = FormWindowState.Minimized;
+                notifyIcon1.Visible = true;
+                this.Hide();
+            }
+            
             //set up timer (every 30s) for checking the minute offsets
             ogstimer = new Timer();
-            ogstimer.Interval = 10000;
+            ogstimer.Interval = 30000;
             ogstimer.Tick += new EventHandler(ogstimer_Tick);
             ogstimer.Start();
             oldtime = DateTime.Now;
@@ -85,13 +97,14 @@ namespace OutlookGoogleSync
 
         void ogstimer_Tick(object sender, EventArgs e)
         {
+            if (!cbSyncEveryHour.Checked) return;
             DateTime newtime = DateTime.Now;
             if (newtime.Minute != oldtime.Minute)
             {
                 oldtime = newtime;
                 if (MinuteOffsets.Contains(newtime.Minute)) 
                 {
-                    notifyIcon1.ShowBalloonTip(
+                    if (cbShowBubbleTooltips.Checked) notifyIcon1.ShowBalloonTip(
                         500, 
                         "OutlookGoogleSync", 
                         "Sync started at desired minute offset " + newtime.Minute.ToString(),
@@ -229,11 +242,13 @@ namespace OutlookGoogleSync
                     
                     if (cbAddAttendees.Checked)
                     {
-                        ev.Description += Environment.NewLine + "----------------------------------------";
+                        ev.Description += Environment.NewLine;
+                        ev.Description += Environment.NewLine + "==============================================";
                         ev.Description += Environment.NewLine + "Added by OutlookGoogleSync:" + Environment.NewLine;
-                        ev.Description += Environment.NewLine + "ORGANIZER: " + ai.Organizer + Environment.NewLine;
-                        ev.Description += Environment.NewLine + "REQUIRED: " + ai.RequiredAttendees + Environment.NewLine;
-                        ev.Description += Environment.NewLine + "OPTIONAL: " + ai.OptionalAttendees;
+                        ev.Description += Environment.NewLine + "ORGANIZER: " + Environment.NewLine + ai.Organizer + Environment.NewLine;
+                        ev.Description += Environment.NewLine + "REQUIRED: " + Environment.NewLine + splitAttendees(ai.RequiredAttendees) + Environment.NewLine;
+                        ev.Description += Environment.NewLine + "OPTIONAL: " + Environment.NewLine + splitAttendees(ai.OptionalAttendees);
+                        ev.Description += Environment.NewLine + "==============================================";
                     }
                     
                     GoogleCalendar.Instance.addEntry(ev);
@@ -248,6 +263,15 @@ namespace OutlookGoogleSync
             logboxout("Time needed: " + Elapsed.Minutes + " min " + Elapsed.Seconds + " s");
             
             bSyncNow.Enabled = true;
+        }
+        
+        //one attendee per line
+        public string splitAttendees(string attendees)
+        {
+            if (attendees==null) return "";
+            string[] tmp1 = attendees.Split(';');
+            for(int i=0;i<tmp1.Length;i++) tmp1[i] = tmp1[i].Trim();
+            return String.Join(Environment.NewLine, tmp1);
         }
         
         
@@ -332,13 +356,34 @@ namespace OutlookGoogleSync
                 MinuteOffsets.Add(min);
             }
 		}
+
 		
-		void CheckBox1CheckedChanged(object sender, EventArgs e)
+		void CbSyncEveryHourCheckedChanged(object sender, System.EventArgs e)
+		{
+		    Settings.Instance.SyncEveryHour = cbSyncEveryHour.Checked;
+		}
+		
+		void CbShowBubbleTooltipsCheckedChanged(object sender, System.EventArgs e)
+		{
+		    Settings.Instance.ShowBubbleTooltipWhenSyncing = cbShowBubbleTooltips.Checked;
+		}
+		
+		void CbStartInTrayCheckedChanged(object sender, System.EventArgs e)
+		{
+		    Settings.Instance.StartInTray = cbStartInTray.Checked;
+		}
+		
+		void CbMinimizeToTrayCheckedChanged(object sender, System.EventArgs e)
+		{
+		    Settings.Instance.MinimizeToTray = cbMinimizeToTray.Checked;
+		}		
+
+		void cbAddAttendees_CheckedChanged(object sender, EventArgs e)
 		{
 		    Settings.Instance.AddAttendeesToDescription = cbAddAttendees.Checked;
 		}
 		
-		void CheckBox2CheckedChanged(object sender, EventArgs e)
+		void cbCreateFiles_CheckedChanged(object sender, EventArgs e)
 		{
 		    Settings.Instance.CreateTextFiles = cbCreateFiles.Checked;
 		}
@@ -351,17 +396,17 @@ namespace OutlookGoogleSync
 		
 		void MainFormResize(object sender, EventArgs e)
 		{
-             if (FormWindowState.Minimized == this.WindowState)
-             {
-                  notifyIcon1.Visible = true;
-                  notifyIcon1.ShowBalloonTip(500, "OutlookGoogleSync", "Click to open again.", ToolTipIcon.Info);
-                  this.Hide();    
-             }
-             else if (FormWindowState.Normal == this.WindowState)
-             {
-                  notifyIcon1.Visible = false;
-             }
-
+		    if (!cbMinimizeToTray.Checked) return;
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                 notifyIcon1.Visible = true;
+                 //notifyIcon1.ShowBalloonTip(500, "OutlookGoogleSync", "Click to open again.", ToolTipIcon.Info);
+                 this.Hide();    
+            }
+            else if (this.WindowState == FormWindowState.Normal)
+            {
+                 notifyIcon1.Visible = false;
+            }
         }
         
 		public void HandleException(System.Exception ex)
