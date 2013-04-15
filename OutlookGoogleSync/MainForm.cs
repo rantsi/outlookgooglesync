@@ -20,7 +20,7 @@ namespace OutlookGoogleSync
         public static MainForm Instance;
         
         public const string FILENAME = "settings.xml";
-        public const string VERSION = "1.0.7";
+        public const string VERSION = "1.0.8";
         
         public Timer ogstimer;
         public DateTime oldtime;
@@ -56,6 +56,7 @@ namespace OutlookGoogleSync
             cbShowBubbleTooltips.Checked = Settings.Instance.ShowBubbleTooltipWhenSyncing;
             cbStartInTray.Checked = Settings.Instance.StartInTray;
             cbMinimizeToTray.Checked = Settings.Instance.MinimizeToTray;
+            cbAddDescription.Checked = Settings.Instance.AddDescription;
             cbAddAttendees.Checked = Settings.Instance.AddAttendeesToDescription;
             cbCreateFiles.Checked = Settings.Instance.CreateTextFiles;
             
@@ -92,6 +93,9 @@ namespace OutlookGoogleSync
                 "If checked, all entries found in Outlook/Google and identified for creation/deletion will be exported \n" +
                 "to 4 separate text files in the application's directory (named \"export_*.txt\"). \n" +
                 "Only for debug/diagnostic purpose.");
+            toolTip1.SetToolTip(cbAddDescription, 
+                "The description may contain email addresses, which Outlook may complain about (PopUp-Message: Allow Access? etc.). " +
+                "Turning this off allows OutlookGoogleSync to run without intervention in this case.");
             
         }
 
@@ -237,7 +241,7 @@ namespace OutlookGoogleSync
                         ev.End.DateTime = GoogleCalendar.Instance.GoogleTimeFrom(ai.End);
                     }
                     ev.Summary = ai.Subject;
-                    ev.Description = ai.Body;
+                    if (cbAddDescription.Checked) ev.Description = ai.Body;
                     ev.Location = ai.Location;
                     
                     if (cbAddAttendees.Checked)
@@ -378,6 +382,11 @@ namespace OutlookGoogleSync
 		    Settings.Instance.MinimizeToTray = cbMinimizeToTray.Checked;
 		}		
 
+		void CbAddDescriptionCheckedChanged(object sender, EventArgs e)
+		{
+		    Settings.Instance.AddDescription = cbAddDescription.Checked;
+		}		
+
 		void cbAddAttendees_CheckedChanged(object sender, EventArgs e)
 		{
 		    Settings.Instance.AddAttendeesToDescription = cbAddAttendees.Checked;
@@ -427,6 +436,8 @@ namespace OutlookGoogleSync
 		{
 			System.Diagnostics.Process.Start(linkLabel1.Text);			
 		}
+		
+
 		
 
     }

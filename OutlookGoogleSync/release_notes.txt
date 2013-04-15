@@ -1,6 +1,8 @@
-﻿1.7:
+﻿1.8:
+- fixed Fixed date range locale bug (THANKS TO WolverineFan!!!)
 - additional options (start in tray, minimize to tray, show bubble tolltip when syncing)
 - attendees more readable: one attendee per line
+
 
 1.6:
 - compiled with .Net 3.5
