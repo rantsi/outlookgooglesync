@@ -43,6 +43,7 @@ namespace OutlookGoogleSync
 		    this.bSyncNow = new System.Windows.Forms.Button();
 		    this.tabPage2 = new System.Windows.Forms.TabPage();
 		    this.groupBox5 = new System.Windows.Forms.GroupBox();
+		    this.cbAddReminders = new System.Windows.Forms.CheckBox();
 		    this.cbAddAttendees = new System.Windows.Forms.CheckBox();
 		    this.cbAddDescription = new System.Windows.Forms.CheckBox();
 		    this.cbCreateFiles = new System.Windows.Forms.CheckBox();
@@ -138,15 +139,25 @@ namespace OutlookGoogleSync
 		    // 
 		    // groupBox5
 		    // 
+		    this.groupBox5.Controls.Add(this.cbAddReminders);
 		    this.groupBox5.Controls.Add(this.cbAddAttendees);
 		    this.groupBox5.Controls.Add(this.cbAddDescription);
-		    this.groupBox5.Controls.Add(this.cbCreateFiles);
-		    this.groupBox5.Location = new System.Drawing.Point(6, 265);
+		    this.groupBox5.Location = new System.Drawing.Point(6, 171);
 		    this.groupBox5.Name = "groupBox5";
-		    this.groupBox5.Size = new System.Drawing.Size(261, 111);
+		    this.groupBox5.Size = new System.Drawing.Size(475, 112);
 		    this.groupBox5.TabIndex = 12;
 		    this.groupBox5.TabStop = false;
-		    this.groupBox5.Text = "Options";
+		    this.groupBox5.Text = "When creating Google Calendar Entries...   ";
+		    // 
+		    // cbAddReminders
+		    // 
+		    this.cbAddReminders.Location = new System.Drawing.Point(12, 79);
+		    this.cbAddReminders.Name = "cbAddReminders";
+		    this.cbAddReminders.Size = new System.Drawing.Size(139, 24);
+		    this.cbAddReminders.TabIndex = 8;
+		    this.cbAddReminders.Text = "Add Reminders";
+		    this.cbAddReminders.UseVisualStyleBackColor = true;
+		    this.cbAddReminders.CheckedChanged += new System.EventHandler(this.CbAddRemindersCheckedChanged);
 		    // 
 		    // cbAddAttendees
 		    // 
@@ -182,12 +193,13 @@ namespace OutlookGoogleSync
 		    // 
 		    this.groupBox4.Controls.Add(this.cbMinimizeToTray);
 		    this.groupBox4.Controls.Add(this.cbStartInTray);
-		    this.groupBox4.Location = new System.Drawing.Point(6, 171);
+		    this.groupBox4.Controls.Add(this.cbCreateFiles);
+		    this.groupBox4.Location = new System.Drawing.Point(6, 289);
 		    this.groupBox4.Name = "groupBox4";
-		    this.groupBox4.Size = new System.Drawing.Size(165, 88);
+		    this.groupBox4.Size = new System.Drawing.Size(475, 115);
 		    this.groupBox4.TabIndex = 11;
 		    this.groupBox4.TabStop = false;
-		    this.groupBox4.Text = "Behaviour";
+		    this.groupBox4.Text = "Options";
 		    // 
 		    // cbMinimizeToTray
 		    // 
@@ -374,7 +386,8 @@ namespace OutlookGoogleSync
 		    this.label4.Name = "label4";
 		    this.label4.Size = new System.Drawing.Size(481, 96);
 		    this.label4.TabIndex = 1;
-		    this.label4.Text = "OutlookGoogleSync\r\n\r\nVersion {version}\r\n\r\nprogrammed 2012 by\r\nZissis Siantidis\r\n";
+		    this.label4.Text = "OutlookGoogleSync\r\n\r\nVersion {version}\r\n\r\nprogrammed 2012-2013 by\r\nZissis Siantid" +
+		    "is\r\n";
 		    this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 		    // 
 		    // notifyIcon1
@@ -406,6 +419,7 @@ namespace OutlookGoogleSync
 		    this.tabPage3.ResumeLayout(false);
 		    this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.CheckBox cbAddReminders;
 		private System.Windows.Forms.CheckBox cbAddDescription;
 		private System.Windows.Forms.CheckBox cbShowBubbleTooltips;
 		private System.Windows.Forms.CheckBox cbSyncEveryHour;
