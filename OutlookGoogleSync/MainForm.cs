@@ -58,6 +58,7 @@ namespace OutlookGoogleSync
             cbMinimizeToTray.Checked = Settings.Instance.MinimizeToTray;
             cbAddDescription.Checked = Settings.Instance.AddDescription;
             cbAddAttendees.Checked = Settings.Instance.AddAttendeesToDescription;
+            cbAddReminders.Checked = Settings.Instance.AddReminders;
             cbCreateFiles.Checked = Settings.Instance.CreateTextFiles;
             
             //Start in tray?
@@ -88,13 +89,15 @@ namespace OutlookGoogleSync
                 "Separate by comma (e.g. 5,15,25).");
             toolTip1.SetToolTip(cbAddAttendees, 
                 "While Outlook has fields for Organizer, RequiredAttendees and OptionalAttendees, Google has not.\n" +
-                "If checked, this data is added at the end of the description when creating an event in Google.");
+                "If checked, this data is added at the end of the description as text.");
+            toolTip1.SetToolTip(cbAddReminders, 
+                "If checked, the reminder set in outlook will be carried over to the Google Calendar entry (as a popup reminder).");
             toolTip1.SetToolTip(cbCreateFiles, 
                 "If checked, all entries found in Outlook/Google and identified for creation/deletion will be exported \n" +
                 "to 4 separate text files in the application's directory (named \"export_*.txt\"). \n" +
-                "Only for debug/diagnostic purpose.");
+                "Only for debug/diagnostic purposes.");
             toolTip1.SetToolTip(cbAddDescription, 
-                "The description may contain email addresses, which Outlook may complain about (PopUp-Message: Allow Access? etc.). " +
+                "The description may contain email addresses, which Outlook may complain about (PopUp-Message: \"Allow Access?\" etc.). \n" +
                 "Turning this off allows OutlookGoogleSync to run without intervention in this case.");
             
         }
@@ -199,7 +202,7 @@ namespace OutlookGoogleSync
             }
             logboxout(GoogleEntriesToBeDeleted.Count + " Google Calendar Entries to be deleted.");
 
-
+            //OutlookEntriesToBeCreated ...in Google!
             List<AppointmentItem> OutlookEntriesToBeCreated = IdentifyOutlookEntriesToBeCreated(OutlookEntries, GoogleEntries);
             if (cbCreateFiles.Checked)
             {
@@ -243,6 +246,20 @@ namespace OutlookGoogleSync
                     ev.Summary = ai.Subject;
                     if (cbAddDescription.Checked) ev.Description = ai.Body;
                     ev.Location = ai.Location;
+                    
+                    
+                    //consider the reminder set in Outlook
+                    if (cbAddReminders.Checked && ai.ReminderSet)
+                    {
+                        ev.Reminders = new Event.RemindersData();
+                        ev.Reminders.UseDefault = false;
+                        EventReminder reminder = new EventReminder();
+                        reminder.Method = "popup";
+                        reminder.Minutes = ai.ReminderMinutesBeforeStart;
+                        ev.Reminders.Overrides = new List<EventReminder>();
+                        ev.Reminders.Overrides.Add(reminder);
+                    }
+                    
                     
                     if (cbAddAttendees.Checked)
                     {
@@ -309,6 +326,7 @@ namespace OutlookGoogleSync
             return result;
         }
         
+        //creates a standardized summary string with the key attributes of a calendar entry for comparison
         public string signature(AppointmentItem ai)
         {
             return (GoogleCalendar.Instance.GoogleTimeFrom(ai.Start) + ";" + GoogleCalendar.Instance.GoogleTimeFrom(ai.End) + ";" + ai.Subject + ";" + ai.Location).Trim();
@@ -385,6 +403,11 @@ namespace OutlookGoogleSync
 		{
 		    Settings.Instance.AddDescription = cbAddDescription.Checked;
 		}		
+				
+		void CbAddRemindersCheckedChanged(object sender, EventArgs e)
+		{
+		    Settings.Instance.AddReminders = cbAddReminders.Checked;  
+		}
 
 		void cbAddAttendees_CheckedChanged(object sender, EventArgs e)
 		{
@@ -438,6 +461,7 @@ namespace OutlookGoogleSync
 		
 
 		
+
 
     }
 }

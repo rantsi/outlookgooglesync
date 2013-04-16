@@ -102,5 +102,10 @@
   <ItemGroup>
     <None Include="release_notes.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>

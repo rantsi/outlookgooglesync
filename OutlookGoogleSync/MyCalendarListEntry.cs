@@ -1,12 +1,4 @@
-﻿/*
- * Created by SharpDevelop.
- * User: zsianti
- * Date: 14.08.2012
- * Time: 14:06
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
- */
-using System;
+﻿using System;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 
