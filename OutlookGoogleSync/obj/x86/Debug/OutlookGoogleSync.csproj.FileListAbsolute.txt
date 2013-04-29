@@ -39,11 +39,7 @@ C:\work\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Newtonsoft.Js
 C:\work\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\work\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\OutlookGoogleSync.exe
 C:\work\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\OutlookGoogleSync.pdb
-D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\ResolveAssemblyReference.cache
-D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\OutlookGoogleSync.EnterAuthorizationCode.resources
 D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\OutlookGoogleSync.MainForm.resources
-D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\GenerateResource.read.1.tlog
-D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\GenerateResource.write.1.tlog
 D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\OutlookGoogleSync.exe
 D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\OutlookGoogleSync.pdb
 D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\OutlookGoogleSync.exe
@@ -62,8 +58,6 @@ D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Google.Apis.Calend
 D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Google.Apis.Calendar.v3.xml
 D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Newtonsoft.Json.Net35.xml
 D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\OUTLPIA.DLL
-D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\ResGen.read.1.tlog
-D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\ResGen.write.1.tlog
 E:\dev\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\ResolveAssemblyReference.cache
 E:\dev\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\OutlookGoogleSync.exe
 E:\dev\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\OutlookGoogleSync.pdb
@@ -84,3 +78,5 @@ E:\dev\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Google.Apis.Calendar.v3.pdb
 E:\dev\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Google.Apis.Calendar.v3.xml
 E:\dev\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\Newtonsoft.Json.Net35.xml
 C:\work\dev\projects\OutlookGoogleSync\OutlookGoogleSync\bin\Debug\OUTLPIA.DLL
+D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\OutlookGoogleSync.csproj.GenerateResource.Cache
+D:\dev\projects\OutlookGoogleSync\OutlookGoogleSync\obj\x86\Debug\OutlookGoogleSync.EnterAuthorizationCode.resources
