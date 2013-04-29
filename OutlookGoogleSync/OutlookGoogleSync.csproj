@@ -103,6 +103,9 @@
     <None Include="release_notes.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="EnterAuthorizationCode.resx">
+      <DependentUpon>EnterAuthorizationCode.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
