@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 # SharpDevelop 4.2.0.8783
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookGoogleSync", "OutlookGoogleSync\OutlookGoogleSync.csproj", "{B35C9DB2-79BC-46A3-9BE4-BCE33BC3721E}"
 EndProject

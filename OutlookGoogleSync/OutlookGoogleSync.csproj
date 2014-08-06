@@ -7,7 +7,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>OutlookGoogleSync</RootNamespace>
     <AssemblyName>OutlookGoogleSync</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -47,36 +47,42 @@
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetOpenAuth">
       <HintPath>lib\DotNetOpenAuth.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis">
+    <Reference Include="Google.Apis, Version=1.8.1.31687, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Google.Apis.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Authentication.OAuth2">
       <HintPath>lib\Google.Apis.Authentication.OAuth2.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Calendar.v3">
+    <Reference Include="Google.Apis.Calendar.v3, Version=1.8.1.88, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\CalendarService\Google.Apis.Calendar.v3.dll</HintPath>
     </Reference>
-    <Reference Include="OUTLPIA">
-      <HintPath>lib\OUTLPIA.DLL</HintPath>
+    <Reference Include="Microsoft.Exchange.WebServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\EWS-Api-2.1.1.0.0\lib\net35\Microsoft.Exchange.WebServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnterAuthorizationCode.cs">
@@ -85,7 +91,9 @@
     <Compile Include="EnterAuthorizationCode.Designer.cs">
       <DependentUpon>EnterAuthorizationCode.cs</DependentUpon>
     </Compile>
+    <Compile Include="EwsCalendar.cs" />
     <Compile Include="GoogleCalendar.cs" />
+    <Compile Include="IOfficeCalendar.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +101,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MyCalendarListEntry.cs" />
+    <Compile Include="OutlookAppointment.cs" />
     <Compile Include="OutlookCalendar.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,11 +109,16 @@
     <Compile Include="XMLManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
     <None Include="release_notes.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EnterAuthorizationCode.resx">
       <DependentUpon>EnterAuthorizationCode.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
