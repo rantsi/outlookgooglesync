@@ -44,6 +44,7 @@ namespace OutlookGoogleSync
             this.bSyncNow = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.txtEWSServerURL = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtEWSPass = new System.Windows.Forms.TextBox();
@@ -74,11 +75,11 @@ namespace OutlookGoogleSync
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label4 = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.label8 = new System.Windows.Forms.Label();
+            this.checkBoxStartWithWindows = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -174,6 +175,14 @@ namespace OutlookGoogleSync
             this.groupBox6.TabIndex = 13;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "EWS Settings";
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(67, 130);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(187, 23);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "(leave blank to autodiscover, slower)";
             // 
             // txtEWSServerURL
             // 
@@ -283,6 +292,7 @@ namespace OutlookGoogleSync
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.checkBoxStartWithWindows);
             this.groupBox4.Controls.Add(this.cbMinimizeToTray);
             this.groupBox4.Controls.Add(this.cbStartInTray);
             this.groupBox4.Controls.Add(this.cbCreateFiles);
@@ -481,6 +491,16 @@ namespace OutlookGoogleSync
             this.tabPage3.Text = "About";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // linkLabel2
+            // 
+            this.linkLabel2.Location = new System.Drawing.Point(6, 222);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(475, 23);
+            this.linkLabel2.TabIndex = 3;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "https://github.com/rantsi/outlookgooglesync";
+            this.linkLabel2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // linkLabel1
             // 
             this.linkLabel1.Location = new System.Drawing.Point(3, 199);
@@ -508,23 +528,15 @@ namespace OutlookGoogleSync
             this.notifyIcon1.Text = "OutlookGoogleSync";
             this.notifyIcon1.Click += new System.EventHandler(this.NotifyIcon1Click);
             // 
-            // linkLabel2
+            // checkBoxStartWithWindows
             // 
-            this.linkLabel2.Location = new System.Drawing.Point(6, 222);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(475, 23);
-            this.linkLabel2.TabIndex = 3;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "https://github.com/rantsi/outlookgooglesync";
-            this.linkLabel2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(67, 130);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(187, 23);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "(leave blank to autodiscover, slower)";
+            this.checkBoxStartWithWindows.Location = new System.Drawing.Point(212, 19);
+            this.checkBoxStartWithWindows.Name = "checkBoxStartWithWindows";
+            this.checkBoxStartWithWindows.Size = new System.Drawing.Size(153, 24);
+            this.checkBoxStartWithWindows.TabIndex = 8;
+            this.checkBoxStartWithWindows.Text = "Start with windows";
+            this.checkBoxStartWithWindows.UseVisualStyleBackColor = true;
+            this.checkBoxStartWithWindows.CheckedChanged += new System.EventHandler(this.checkBoxStartWithWindows_CheckedChanged);
             // 
             // MainForm
             // 
@@ -596,6 +608,7 @@ namespace OutlookGoogleSync
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox checkBoxStartWithWindows;
 		
 	
 

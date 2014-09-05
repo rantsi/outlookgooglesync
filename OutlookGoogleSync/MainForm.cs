@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Microsoft.Office.Interop.Outlook;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
+using Microsoft.Win32;
+using Application = System.Windows.Forms.Application;
 
 namespace OutlookGoogleSync
 {
@@ -578,6 +580,25 @@ namespace OutlookGoogleSync
         private void txtEWSServerURL_TextChanged(object sender, EventArgs e)
         {
             Settings.Instance.ExchageServerAddress = txtEWSServerURL.Text;
+        }
+
+        private void checkBoxStartWithWindows_CheckedChanged(object sender, EventArgs e)
+        {
+            var checkBox = sender as CheckBox;
+            
+            var path = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(path, true);
+            
+            if (checkBox.Checked)
+            {
+                // set value in registery
+                key.SetValue(Application.ProductName, Application.ExecutablePath);
+            }
+            else
+            {
+                // remove value from registery
+                key.DeleteValue(Application.ProductName, false);
+            }
         }
 
     }
