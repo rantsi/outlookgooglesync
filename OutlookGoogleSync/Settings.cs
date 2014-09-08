@@ -39,6 +39,7 @@ namespace OutlookGoogleSync
         public bool SyncEveryHour = false;
         public bool ShowBubbleTooltipWhenSyncing = false;
         public bool StartInTray = false;
+        public bool StartWithWindows = false;
         public bool MinimizeToTray = false;
 
         public bool AddDescription = true;

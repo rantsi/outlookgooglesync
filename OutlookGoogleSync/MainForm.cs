@@ -59,6 +59,7 @@ namespace OutlookGoogleSync
             cbSyncEveryHour.Checked = Settings.Instance.SyncEveryHour;
             cbShowBubbleTooltips.Checked = Settings.Instance.ShowBubbleTooltipWhenSyncing;
             cbStartInTray.Checked = Settings.Instance.StartInTray;
+            cbStartWithWindows.Checked = Settings.Instance.StartWithWindows;
             cbMinimizeToTray.Checked = Settings.Instance.MinimizeToTray;
             cbAddDescription.Checked = Settings.Instance.AddDescription;
             cbAddAttendees.Checked = Settings.Instance.AddAttendeesToDescription;
@@ -73,6 +74,7 @@ namespace OutlookGoogleSync
             if (cbStartInTray.Checked)
             {
                 this.WindowState = FormWindowState.Minimized;
+                this.ShowInTaskbar = false;
                 notifyIcon1.Visible = true;
                 this.Hide();
             }
@@ -478,7 +480,6 @@ namespace OutlookGoogleSync
             }
         }
 
-
         private void CbSyncEveryHourCheckedChanged(object sender, System.EventArgs e)
         {
             Settings.Instance.SyncEveryHour = cbSyncEveryHour.Checked;
@@ -552,8 +553,6 @@ namespace OutlookGoogleSync
             System.Windows.Forms.Application.Exit();
         }
 
-
-
         private void LinkLabel1LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(linkLabel1.Text);
@@ -585,6 +584,8 @@ namespace OutlookGoogleSync
         private void checkBoxStartWithWindows_CheckedChanged(object sender, EventArgs e)
         {
             var checkBox = sender as CheckBox;
+
+            Settings.Instance.StartWithWindows = checkBox.Checked;
             
             var path = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
             RegistryKey key = Registry.CurrentUser.OpenSubKey(path, true);

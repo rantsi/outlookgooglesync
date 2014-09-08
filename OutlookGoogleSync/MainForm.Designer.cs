@@ -57,6 +57,7 @@ namespace OutlookGoogleSync
             this.cbAddAttendees = new System.Windows.Forms.CheckBox();
             this.cbAddDescription = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbStartWithWindows = new System.Windows.Forms.CheckBox();
             this.cbMinimizeToTray = new System.Windows.Forms.CheckBox();
             this.cbStartInTray = new System.Windows.Forms.CheckBox();
             this.cbCreateFiles = new System.Windows.Forms.CheckBox();
@@ -79,7 +80,6 @@ namespace OutlookGoogleSync
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label4 = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.checkBoxStartWithWindows = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -292,7 +292,7 @@ namespace OutlookGoogleSync
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.checkBoxStartWithWindows);
+            this.groupBox4.Controls.Add(this.cbStartWithWindows);
             this.groupBox4.Controls.Add(this.cbMinimizeToTray);
             this.groupBox4.Controls.Add(this.cbStartInTray);
             this.groupBox4.Controls.Add(this.cbCreateFiles);
@@ -302,6 +302,16 @@ namespace OutlookGoogleSync
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Options";
+            // 
+            // cbStartWithWindows
+            // 
+            this.cbStartWithWindows.Location = new System.Drawing.Point(212, 19);
+            this.cbStartWithWindows.Name = "cbStartWithWindows";
+            this.cbStartWithWindows.Size = new System.Drawing.Size(153, 24);
+            this.cbStartWithWindows.TabIndex = 8;
+            this.cbStartWithWindows.Text = "Start with windows";
+            this.cbStartWithWindows.UseVisualStyleBackColor = true;
+            this.cbStartWithWindows.CheckedChanged += new System.EventHandler(this.checkBoxStartWithWindows_CheckedChanged);
             // 
             // cbMinimizeToTray
             // 
@@ -518,7 +528,7 @@ namespace OutlookGoogleSync
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(481, 151);
             this.label4.TabIndex = 1;
-            this.label4.Text = "OutlookGoogleSync\r\n\r\nVersion {version}\r\n\r\ninitial version programmed 2012-2013 by" +
+            this.label4.Text = "Outlook Google Sync\r\n\r\nVersion {version}\r\n\r\ninitial version programmed 2012-2013 by" +
     "\r\nZissis Siantidis\r\n\r\nFork by rantsi 2014\r\n";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -528,16 +538,6 @@ namespace OutlookGoogleSync
             this.notifyIcon1.Text = "OutlookGoogleSync";
             this.notifyIcon1.Click += new System.EventHandler(this.NotifyIcon1Click);
             // 
-            // checkBoxStartWithWindows
-            // 
-            this.checkBoxStartWithWindows.Location = new System.Drawing.Point(212, 19);
-            this.checkBoxStartWithWindows.Name = "checkBoxStartWithWindows";
-            this.checkBoxStartWithWindows.Size = new System.Drawing.Size(153, 24);
-            this.checkBoxStartWithWindows.TabIndex = 8;
-            this.checkBoxStartWithWindows.Text = "Start with windows";
-            this.checkBoxStartWithWindows.UseVisualStyleBackColor = true;
-            this.checkBoxStartWithWindows.CheckedChanged += new System.EventHandler(this.checkBoxStartWithWindows_CheckedChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -546,9 +546,10 @@ namespace OutlookGoogleSync
             this.ClientSize = new System.Drawing.Size(512, 542);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(506, 552);
             this.Name = "MainForm";
-            this.Text = "OutlookGoogleSync";
+            this.Text = "OGS: Outlook Google Sync";
             this.Resize += new System.EventHandler(this.MainFormResize);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -608,7 +609,7 @@ namespace OutlookGoogleSync
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox checkBoxStartWithWindows;
+        private System.Windows.Forms.CheckBox cbStartWithWindows;
 		
 	
 
