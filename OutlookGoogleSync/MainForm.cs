@@ -5,6 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Net;
+using System.Text;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Outlook;
 using Google.Apis.Calendar.v3;
@@ -331,16 +332,21 @@ namespace OutlookGoogleSync
                         ev.Reminders.Overrides.Add(reminder);
                     }
 
+                    ev.Description = ai.Body;
 
+                    // Set Attendees
                     if (cbAddAttendees.Checked)
                     {
-                        ev.Description += Environment.NewLine;
-                        ev.Description += Environment.NewLine + "==============================================";
-                        ev.Description += Environment.NewLine + "Added by OutlookGoogleSync:" + Environment.NewLine;
-                        ev.Description += Environment.NewLine + "ORGANIZER: " + Environment.NewLine + ai.Organizer + Environment.NewLine;
-                        ev.Description += Environment.NewLine + "REQUIRED: " + Environment.NewLine + splitAttendees(ai.RequiredAttendees) + Environment.NewLine;
-                        ev.Description += Environment.NewLine + "OPTIONAL: " + Environment.NewLine + splitAttendees(ai.OptionalAttendees);
-                        ev.Description += Environment.NewLine + "==============================================";
+                        var footer = new StringBuilder();
+                        footer.Append(Environment.NewLine);
+                        footer.Append(Environment.NewLine + "==============================================");
+                        footer.Append(Environment.NewLine + "Added by OutlookGoogleSync:" + Environment.NewLine);
+                        footer.Append(Environment.NewLine + "ORGANIZER: " + Environment.NewLine + ai.Organizer + Environment.NewLine);
+                        footer.Append(Environment.NewLine + "REQUIRED: " + Environment.NewLine + splitAttendees(ai.RequiredAttendees) + Environment.NewLine);
+                        footer.Append(Environment.NewLine + "OPTIONAL: " + Environment.NewLine + splitAttendees(ai.OptionalAttendees));
+                        footer.Append(Environment.NewLine + "==============================================");
+
+                        ev.Description = ev.Description + footer;
                     }
 
                     GoogleCalendar.Instance.addEntry(ev);
