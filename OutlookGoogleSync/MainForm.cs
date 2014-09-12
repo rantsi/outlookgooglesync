@@ -5,10 +5,13 @@ using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Net;
+using System.Text;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Outlook;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
+using Microsoft.Win32;
+using Application = System.Windows.Forms.Application;
 
 namespace OutlookGoogleSync
 {
@@ -57,6 +60,7 @@ namespace OutlookGoogleSync
             cbSyncEveryHour.Checked = Settings.Instance.SyncEveryHour;
             cbShowBubbleTooltips.Checked = Settings.Instance.ShowBubbleTooltipWhenSyncing;
             cbStartInTray.Checked = Settings.Instance.StartInTray;
+            cbStartWithWindows.Checked = Settings.Instance.StartWithWindows;
             cbMinimizeToTray.Checked = Settings.Instance.MinimizeToTray;
             cbAddDescription.Checked = Settings.Instance.AddDescription;
             cbAddAttendees.Checked = Settings.Instance.AddAttendeesToDescription;
@@ -71,6 +75,7 @@ namespace OutlookGoogleSync
             if (cbStartInTray.Checked)
             {
                 this.WindowState = FormWindowState.Minimized;
+                this.ShowInTaskbar = false;
                 notifyIcon1.Visible = true;
                 this.Hide();
             }
@@ -327,16 +332,21 @@ namespace OutlookGoogleSync
                         ev.Reminders.Overrides.Add(reminder);
                     }
 
+                    ev.Description = ai.Body;
 
+                    // Set Attendees
                     if (cbAddAttendees.Checked)
                     {
-                        ev.Description += Environment.NewLine;
-                        ev.Description += Environment.NewLine + "==============================================";
-                        ev.Description += Environment.NewLine + "Added by OutlookGoogleSync:" + Environment.NewLine;
-                        ev.Description += Environment.NewLine + "ORGANIZER: " + Environment.NewLine + ai.Organizer + Environment.NewLine;
-                        ev.Description += Environment.NewLine + "REQUIRED: " + Environment.NewLine + splitAttendees(ai.RequiredAttendees) + Environment.NewLine;
-                        ev.Description += Environment.NewLine + "OPTIONAL: " + Environment.NewLine + splitAttendees(ai.OptionalAttendees);
-                        ev.Description += Environment.NewLine + "==============================================";
+                        var footer = new StringBuilder();
+                        footer.Append(Environment.NewLine);
+                        footer.Append(Environment.NewLine + "==============================================");
+                        footer.Append(Environment.NewLine + "Added by OutlookGoogleSync:" + Environment.NewLine);
+                        footer.Append(Environment.NewLine + "ORGANIZER: " + Environment.NewLine + ai.Organizer + Environment.NewLine);
+                        footer.Append(Environment.NewLine + "REQUIRED: " + Environment.NewLine + splitAttendees(ai.RequiredAttendees) + Environment.NewLine);
+                        footer.Append(Environment.NewLine + "OPTIONAL: " + Environment.NewLine + splitAttendees(ai.OptionalAttendees));
+                        footer.Append(Environment.NewLine + "==============================================");
+
+                        ev.Description = ev.Description + footer;
                     }
 
                     GoogleCalendar.Instance.addEntry(ev);
@@ -476,7 +486,6 @@ namespace OutlookGoogleSync
             }
         }
 
-
         private void CbSyncEveryHourCheckedChanged(object sender, System.EventArgs e)
         {
             Settings.Instance.SyncEveryHour = cbSyncEveryHour.Checked;
@@ -550,8 +559,6 @@ namespace OutlookGoogleSync
             System.Windows.Forms.Application.Exit();
         }
 
-
-
         private void LinkLabel1LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(linkLabel1.Text);
@@ -578,6 +585,27 @@ namespace OutlookGoogleSync
         private void txtEWSServerURL_TextChanged(object sender, EventArgs e)
         {
             Settings.Instance.ExchageServerAddress = txtEWSServerURL.Text;
+        }
+
+        private void checkBoxStartWithWindows_CheckedChanged(object sender, EventArgs e)
+        {
+            var checkBox = sender as CheckBox;
+
+            Settings.Instance.StartWithWindows = checkBox.Checked;
+            
+            var path = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(path, true);
+            
+            if (checkBox.Checked)
+            {
+                // set value in registery
+                key.SetValue(Application.ProductName, Application.ExecutablePath);
+            }
+            else
+            {
+                // remove value from registery
+                key.DeleteValue(Application.ProductName, false);
+            }
         }
 
     }
